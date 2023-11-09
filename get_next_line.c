@@ -6,14 +6,20 @@
 /*   By: vharatyk <vharatyk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:11:56 by vharatyk          #+#    #+#             */
-/*   Updated: 2023/11/08 11:02:24 by vharatyk         ###   ########.fr       */
+/*   Updated: 2023/11/09 12:50:45 by vharatyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include<unistd.h>
-#include <fcntl.h>
+#include<fcntl.h>
+#include<stdlib.h>
+#include<stdio.h>
 #include"get_next_line.h"
+
+void readed_line(int nb_read , int fd ,char liste );
+int find_new_line(char *buf);
+
 
 char *get_next_line(int fd)
 	{
@@ -34,22 +40,28 @@ void readed_line(int nb_read , int fd ,char liste )
 	char *buf ;
 
 	buf = malloc(sizeof(char)* BEFFER_SIZE);
-	if(buf==NULL)
-		return 0 ;
+	if(buf == NULL)
+		return 0;
 	while(find_newline(buf))
 		{
 		read(fd , buf , BEFFER_SIZE);
-
 		}
-
 	}
 
-int find_new_line(int buf)
+int find_new_line(char *buf)
 	{
+		int i = 0 ;
+		if(buf == NULL)
+			return 1 ;
 
 		while(buf)
-		if(buf == '/n')
-
+		{
+		if(buf[i] == '/n')
+		{
+			i++;
+			reuturn(buf);
+		}
+		}
 	}
 
 int main(void)
@@ -65,6 +77,5 @@ int main(void)
 		printf("%s" ,line);
 		free(line) ;
 	}
-
 return 0;
 }
