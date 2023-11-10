@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vharatyk <vharatyk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viktor <viktor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:11:56 by vharatyk          #+#    #+#             */
-/*   Updated: 2023/11/10 13:45:57 by vharatyk         ###   ########.fr       */
+/*   Updated: 2023/11/10 22:06:52 by viktor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,16 @@ char *get_next_line(int fd)
 	static char *liste;
 	char *line;
 
-
 	if(BUFFER_SIZE < 0 || fd < 0 || read(fd , 0 , 0) < 0 )
 		return(0);
-
 
 	liste = read_line(fd , liste);
 	if(!liste)
 		return(NULL);
-	printf("etat  :%s", liste);
-	line = get_line(liste); //renvoie correctement la ligne
-	liste = stay_str(liste); //retourne le reste dans la varialbe static
-	printf("etat  :%s", liste);
-	if(line == NULL)
-		return(NULL);
 
+	line = ft_get_line(liste);
+	free(line); //renvoie correctement la ligne
+	liste = stay_str(liste); //retourne le reste dans la varialbe static
 	//lire le fichier par rapport a la taille du buffer
 	//revoiyer le tableau
 
@@ -49,59 +44,58 @@ int i = 0 ;
 int j = 0 ;
 char *remains;
 
-
-	if(liste == NULL)
+	if(!liste[i])
 		return(NULL);
 
-	while(liste[i] != '\n')
-	{
+	while(liste[i] != '\n' && liste[i])
 		i++;
 
+	if(!liste[i])
+	{
+		free(liste);
+		return(NULL);
 	}
-
 	while(liste[j] != '\0')
 		j++;
 
 	remains = malloc(sizeof(char)*j);
 	if(!remains)
 		return (NULL);
-
+	i++;
 	j = 0 ;
-	while(liste[i] != '\0')
+	while(liste[i])
 	{
-		remains[j] = liste[i];
-		i++;
-		j++;
+		remains[j++] = liste[i++];
 	}
-
 	remains[j] = '\0';
 	free(liste);
 	return(remains);
 }
 
-char *get_line(char *liste)
+char *ft_get_line(char *liste)
 {
 	int i = 0;
 	char *line ;
 
-	if(liste == NULL)
+	if(!liste[i])
 		return(NULL);
 
 	while(liste[i] != '\n' && liste[i] != '\0')
-	{
-	i++;
-	}
-	line = malloc(sizeof(char)*i + 1);
-	 i = 0 ;
+		i++;
+
+	line = malloc(sizeof(char)*i + 2);
+	if (!line)
+		return(NULL);
+	i = 0;
 	while(liste[i]!= '\n' &&  liste[i] != '\0' )
 	{
-	line[i]=liste[i];
-	i++ ;
+		line[i]=liste[i];
+		i++ ;
 	}
 	if(liste[i] == '\n')
 	{
-	line[i]='\n';
-	i++;
+		line[i]='\n';
+		i++;
 	}
 	line[i]='\0';
 	return(line);
@@ -117,19 +111,17 @@ char *read_line(int fd , char *liste )
 	if(!buf)
 		return(NULL);
 
-	while( seach_new_line(buf) && nb_read != 0)
+	while( seach_new_line(buf) && nb_read != 0) // a retier
 	{
-		//printf("%s",buf);
 		nb_read = read(fd ,buf , BUFFER_SIZE); // lis la ligne stock dans la liste
 		if(nb_read == -1) //+ verifier les eurreur
 		{
 			free(buf);
 			return(NULL);
 		}
-	buf[nb_read] = '\0' ;
-	liste = ft_strjoin(liste , buf ); //fuite de memoir possible
+		buf[nb_read] = '\0' ;
+		liste = ft_strjoin(liste , buf ); //fuite de memoir possible
 	}
-	//printf("%s", liste);
 	free(buf) ; //+ libere la memoire
 	return(liste);
 }
@@ -143,12 +135,11 @@ int  seach_new_line(char *liste )
 	{
 		if (liste[i] == '\n')
 		{
-			//printf("d");
 			return (0);
 		}
 		i++;
 	}
-	if ( '\n' == liste[i])
+	if ( liste[i] == '\n')
 		return (0);
 	return (1);
 }
@@ -158,7 +149,7 @@ int  seach_new_line(char *liste )
 
 
 
-// main
+// // main
 
 int main(void)
 {
@@ -166,12 +157,13 @@ int main(void)
 	int fd = 0 ;
 	fd = open("test", O_RDONLY);
 	int i = 0;
-	while(1)
+	while(i != 500)
 	{
 		line = get_next_line(fd);
 		if(line == 0)
 			return(0);
-		printf("{{%s}}" ,line);
+		i++;
+		printf("%s" ,line);
 		free(line) ;
 	}
 

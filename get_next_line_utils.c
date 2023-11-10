@@ -6,11 +6,27 @@
 /*   By: viktor <viktor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:22:52 by vharatyk          #+#    #+#             */
-/*   Updated: 2023/11/10 00:30:48 by viktor           ###   ########.fr       */
+/*   Updated: 2023/11/10 22:12:42 by viktor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"get_next_line.h"
+
+void	ft_bzero(void *str, size_t count)
+{
+	unsigned char	*string;
+	size_t			i;
+
+	if (count == 0)
+		return ;
+	i = 0;
+	string = str;
+	while (i < count)
+	{
+		string[i] = 0;
+		i++;
+	}
+}
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
@@ -21,9 +37,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	str_finale = malloc(nb + 1);
 	if (!str_finale)
 		return(NULL);
-	//ft_bzero(str_finale, nb + 1);
+	ft_bzero(str_finale, nb + 1);
 	ft_strlcat(str_finale, s1, nb + 1);
 	ft_strlcat(str_finale, s2, nb + 1);
+
 	return (str_finale);
 }
 
