@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viktor <viktor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vharatyk <vharatyk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:22:43 by vharatyk          #+#    #+#             */
-/*   Updated: 2023/11/10 01:01:21 by viktor           ###   ########.fr       */
+/*   Updated: 2023/11/10 10:55:45 by vharatyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,10 @@
 
 #ifndef GET_NETXT_LINE_H
 # define GET_NETXT_LINE_H
-#define BUFFER_SIZE 5
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
 
 #include<unistd.h>
 #include<stdlib.h>
