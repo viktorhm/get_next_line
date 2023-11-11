@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viktor <viktor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vharatyk <vharatyk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:22:43 by vharatyk          #+#    #+#             */
-/*   Updated: 2023/11/10 17:46:03 by viktor           ###   ########.fr       */
+/*   Updated: 2023/11/11 13:15:03 by vharatyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 #include<unistd.h>
 #include<stdlib.h>
 
+
+char	*ft_strchr(const char *s, int c) ;
 char *get_next_line(int fd);
 char *ft_get_line(char *liste);
 char *stay_str(char *liste);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viktor <viktor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vharatyk <vharatyk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:22:52 by vharatyk          #+#    #+#             */
-/*   Updated: 2023/11/10 22:12:42 by viktor           ###   ########.fr       */
+/*   Updated: 2023/11/11 12:20:36 by vharatyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_bzero(str_finale, nb + 1);
 	ft_strlcat(str_finale, s1, nb + 1);
 	ft_strlcat(str_finale, s2, nb + 1);
-
 	return (str_finale);
 }
 
