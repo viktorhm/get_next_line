@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viktor <viktor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vharatyk <vharatyk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:11:56 by vharatyk          #+#    #+#             */
-/*   Updated: 2023/11/12 00:38:39 by viktor           ###   ########.fr       */
+/*   Updated: 2023/11/12 14:25:49 by vharatyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*get_next_line(int fd)
 	static char	*liste = NULL;
 	char		*line;
 
-	if (BUFFER_SIZE < 0 || fd < 0 || read(fd, 0, 0) < 0)
+	if (BUFFER_SIZE < 0 || fd < 0)
 		return (0);
 	liste = read_line(fd, liste);
 	if (!liste)
@@ -98,12 +98,24 @@ char	*read_line(int fd, char *liste )
 	while (buf && !ft_strchr(buf, '\n'))
 	{
 		nb_read = read(fd, buf, BUFFER_SIZE);
-		buf[nb_read] = '\0' ;
-		tmp = liste;
-		liste = ft_strjoin(liste, buf);
-		free(tmp);
+		if(nb_read == -1)
+		{
+			free(buf);
+			return(NULL);
+		}
 		if (nb_read <= 0)
 			break ;
+		buf[nb_read] = '\0' ;
+		tmp = liste;
+
+		if(nb_read == -1)
+		{
+			free(buf);
+			return(NULL);
+		}
+		liste = ft_strjoin(tmp, buf);
+		free(tmp);
+
 	}
 	free(buf);
 	return (liste);
@@ -124,3 +136,22 @@ char	*ft_strchr(const char *s, int c)
 		return ((char *)&s[i]);
 	return (NULL);
 }
+
+// #include <fcntl.h>
+// #include <stdio.h>
+// int main(void)
+// {
+// 	char *line = NULL ;
+// 	int fd = 0 ;
+
+// 	fd = open("test", O_RDONLY);
+// 	printf("%s", get_next_line(fd));
+// 	printf("%s", get_next_line(fd));
+// 	close(fd);
+// 	printf("%s", get_next_line(fd));
+// 	fd = open("test", O_RDONLY);
+// 	printf("%s", get_next_line(fd));
+// 	printf("%s", get_next_line(fd));
+// 	printf("%s", get_next_line(fd));
+// 	return 0;
+// }
