@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vharatyk <vharatyk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: viktor <viktor@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:11:56 by vharatyk          #+#    #+#             */
-/*   Updated: 2023/11/11 14:50:47 by vharatyk         ###   ########.fr       */
+/*   Updated: 2023/11/12 00:38:39 by viktor           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 char	*get_next_line(int fd)
 {
-	char	*line;
 	static char	*liste = NULL;
+	char		*line;
 
 	if (BUFFER_SIZE < 0 || fd < 0 || read(fd, 0, 0) < 0)
 		return (0);
@@ -29,17 +29,12 @@ char	*get_next_line(int fd)
 
 char	*stay_str(char *liste)
 {
-	int	i;
-	int	j;
-	char		*remains;
+	char	*remains;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;
-	if (!liste[i])
-	{
-		free(liste);
-		return (NULL);
-	}
 	while (liste[i] != '\n' && liste[i])
 		i++;
 	if (!liste[i])
@@ -55,9 +50,7 @@ char	*stay_str(char *liste)
 	i++;
 	j = 0 ;
 	while (liste[i])
-	{
 		remains[j++] = liste[i++];
-	}
 	remains[j] = '\0';
 	free(liste);
 	return (remains);
@@ -65,8 +58,8 @@ char	*stay_str(char *liste)
 
 char	*ft_get_line(char *liste)
 {
-	int	i;
 	char	*line;
+	int		i;
 
 	i = 0;
 	if (!liste[i])
@@ -77,12 +70,12 @@ char	*ft_get_line(char *liste)
 	if (!line)
 		return (NULL);
 	i = 0;
-	while (liste[i]!= '\n' && liste[i] != '\0')
+	while (liste[i] != '\n' && liste[i] != '\0')
 	{
 		line[i] = liste[i];
 		i++;
 	}
-	if(liste[i] == '\n')
+	if (liste[i] == '\n')
 	{
 		line[i] = '\n';
 		i++;
@@ -93,30 +86,28 @@ char	*ft_get_line(char *liste)
 
 char	*read_line(int fd, char *liste )
 {
-	int	nb_read;
 	char	*buf;
+	char	*tmp;
+	int		nb_read;
 
 	nb_read = 1 ;
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (NULL);
 	ft_bzero(buf, BUFFER_SIZE + 1);
-	while(buf && !ft_strchr(buf, '\n'))
+	while (buf && !ft_strchr(buf, '\n'))
 	{
-		nb_read = read(fd ,buf, BUFFER_SIZE);
-
+		nb_read = read(fd, buf, BUFFER_SIZE);
 		buf[nb_read] = '\0' ;
-
-		char *tmp = liste;
-		liste = ft_strjoin(liste , buf );
+		tmp = liste;
+		liste = ft_strjoin(liste, buf);
 		free(tmp);
 		if (nb_read <= 0)
 			break ;
 	}
 	free(buf);
-	return(liste);
+	return (liste);
 }
-
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -131,6 +122,5 @@ char	*ft_strchr(const char *s, int c)
 	}
 	if ((char)c == s[i])
 		return ((char *)&s[i]);
-
 	return (NULL);
 }
