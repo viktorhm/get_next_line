@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: viktor <viktor@student.42.fr>              +#+  +:+       +#+        */
+/*   By: vharatyk <vharatyk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:22:52 by vharatyk          #+#    #+#             */
-/*   Updated: 2023/11/12 00:08:32 by viktor           ###   ########.fr       */
+/*   Updated: 2023/11/13 16:34:33 by vharatyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,3 +84,4 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	else
 		return (res_d + res_s);
 }
+
