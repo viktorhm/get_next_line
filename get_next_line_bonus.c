@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vharatyk <vharatyk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:11:56 by vharatyk          #+#    #+#             */
-/*   Updated: 2023/11/14 11:32:16 by vharatyk         ###   ########.fr       */
+/*   Updated: 2023/11/14 11:45:36 by vharatyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*liste = NULL;
+	static char	*liste[4096];
 	char		*line;
 
-	if (BUFFER_SIZE < 0 || fd < 0)
+	if (BUFFER_SIZE <= 0 || fd < 0)
 	{
-		free(liste);
+		free(liste[fd]);
 		return (0);
 	}
-	liste = read_line(fd, liste);
-	if (!liste)
+	liste[fd] = read_line(fd, liste[fd]);
+	if (!liste[fd])
 	{
-		free(liste);
+		free(liste[fd]);
 		return (NULL);
 	}
-	line = ft_get_line(liste);
-	liste = stay_str(liste);
+	line = ft_get_line(liste[fd]);
+	liste[fd] = stay_str(liste[fd]);
 	return (line);
 }
 
