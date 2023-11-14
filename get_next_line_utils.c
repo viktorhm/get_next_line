@@ -6,7 +6,7 @@
 /*   By: vharatyk <vharatyk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:22:52 by vharatyk          #+#    #+#             */
-/*   Updated: 2023/11/13 16:34:33 by vharatyk         ###   ########.fr       */
+/*   Updated: 2023/11/14 10:32:28 by vharatyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	ft_bzero(void *str, size_t count)
 	}
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*str_finale;
 	int		nb;
@@ -40,6 +40,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	ft_bzero(str_finale, nb + 1);
 	ft_strlcat(str_finale, s1, nb + 1);
 	ft_strlcat(str_finale, s2, nb + 1);
+	free(s1);
 	return (str_finale);
 }
 
@@ -84,4 +85,3 @@ size_t	ft_strlcat(char *dest, const char *src, size_t size)
 	else
 		return (res_d + res_s);
 }
-

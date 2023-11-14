@@ -6,7 +6,7 @@
 /*   By: vharatyk <vharatyk@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 15:11:56 by vharatyk          #+#    #+#             */
-/*   Updated: 2023/11/13 16:33:29 by vharatyk         ###   ########.fr       */
+/*   Updated: 2023/11/14 10:28:16 by vharatyk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ char	*ft_get_line(char *liste)
 char	*read_line(int fd, char *liste )
 {
 	char	*buf;
-	char	*tmp;
 	int		nb_read;
 
 	nb_read = 1 ;
@@ -113,9 +112,7 @@ char	*read_line(int fd, char *liste )
 		if (nb_read <= 0)
 			break ;
 		buf[nb_read] = '\0' ;
-		tmp = liste;
-		liste = ft_strjoin(tmp, buf);
-		free(tmp);
+		liste = ft_strjoin(liste, buf);
 	}
 	free(buf);
 	return (liste);
